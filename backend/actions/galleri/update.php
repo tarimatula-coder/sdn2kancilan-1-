@@ -3,8 +3,6 @@ include '../../app.php';
 include './show.php';
 
 if (isset($_POST['tombol'])) {
-    $keterangan = escapeString($_POST['keterangan']);
-
     $imageNew = $galleri->image;
     $storages = "../../../storages/galleri/";
 
@@ -22,7 +20,7 @@ if (isset($_POST['tombol'])) {
         move_uploaded_file($imageOld, $storages . $imageNew);
     }
 
-    $qUpdate = "UPDATE galleries SET keterangan='$keterangan', image='$imageNew' WHERE id='$id'";
+    $qUpdate = "UPDATE galleries SET image='$imageNew' WHERE id='$id'";
 
     $result = mysqli_query($connect, $qUpdate) or die(mysqli_error($connect));
     if ($result) {

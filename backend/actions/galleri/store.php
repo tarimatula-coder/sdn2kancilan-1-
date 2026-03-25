@@ -2,14 +2,12 @@
 include '../../app.php';
 
 if (isset($_POST['tombol'])) {
-    $keterangan = escapeString($_POST['keterangan']);
-
     $imageOld = $_FILES['image']['tmp_name'];
     $imageNew = time() . ".png";
 
     $storages = "../../../storages/galleri/";
     if (move_uploaded_file($imageOld, $storages . $imageNew)) {
-        $qInsert = "INSERT INTO galleries (keterangan, image) VALUES('$keterangan','$imageNew')";
+        $qInsert = "INSERT INTO galleries (image) VALUES('$imageNew')";
 
         mysqli_query($connect, $qInsert) or die(mysqli_error($connect));
         echo " 

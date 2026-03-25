@@ -34,30 +34,10 @@ include '../../partials/header.php';
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="kategoriInput" class="form-label">Kategori</label>
-                                        <input type="text" name="kategori" class="form-control" id="kategoriInput" placeholder="Masukkan Kategori..." required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="tingkatInput" class="form-label">Tingkat</label>
-                                        <input type="text" name="tingkat" class="form-control" id="tingkatInput" placeholder="Masukkan Tingkat..." required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="tahunInput" class="form-label">Tahun</label>
-                                        <input type="text" name="tahun" class="form-control" id="tahunInput" placeholder="Masukkan Tahun..." required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="peraihInput" class="form-label">Peraih</label>
-                                        <input type="text" name="peraih" class="form-control" id="peraihInput" placeholder="Masukkan Peraih..." required>
-                                    </div>
-
-                                    <div class="mb-3">
                                         <label for="keteranganInput" class="form-label">Keterangan</label>
-                                        <input type="text" name="keterangan" class="form-control" id="keteranganInput" placeholder="Masukkan Nama Keterangan..." required>
+                                        <textarea name="keterangan" class="form-control" id="keteranganInput" rows="5" placeholder="Masukkan Keterangan..." required></textarea>
                                     </div>
-
+                                    
                                     <button type="submit" class="btn btn-success" name="tombol">Tambah</button>
                                     <a href="./index.php" class="btn btn-primary">Kembali</a>
                                 </form>

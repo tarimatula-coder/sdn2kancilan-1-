@@ -7,36 +7,33 @@ $resultgalleri = mysqli_query($connect, $qgalleri) or die(mysqli_error($connect)
     <div class="container">
 
         <!-- JUDUL -->
-        <div class="row mb-4">
+        <div class="row mb-5">
             <div class="col-12 text-center">
-                <h2 class="fw-bold">Galeri Kegiatan</h2>
-                <p class="text-muted mx-auto" style="max-width:600px;">
+                <h2 class="galeri-title">Galeri Kegiatan</h2>
+                <p class="galeri-subtitle">
                     Dokumentasi kegiatan dan prestasi sekolah
                 </p>
             </div>
         </div>
 
         <!-- GALERI -->
-        <div class="row g-3">
+        <div class="row g-4">
             <?php while ($item = $resultgalleri->fetch_object()) : ?>
                 <div class="col-lg-4 col-md-6">
 
-                    <div class="galeri-item">
+                    <div class="galeri-card">
 
-                        <!-- IMAGE -->
                         <div class="galeri-img">
                             <img src="../storages/galleri/<?= htmlspecialchars($item->image) ?>" alt="Galeri">
 
-                            <!-- SEARCH ICON -->
-                            <button class="galeri-search"
-                                onclick="openPreview('../storages/galleri/<?= htmlspecialchars($item->image) ?>')">
-                                <i class="bx bx-search"></i>
-                            </button>
-                        </div>
+                            <!-- OVERLAY -->
+                            <div class="galeri-overlay">
+                                <button class="galeri-btn"
+                                    onclick="openPreview('../storages/galleri/<?= htmlspecialchars($item->image) ?>')">
+                                    <i class="bx bx-expand"></i>
+                                </button>
+                            </div>
 
-                        <!-- KETERANGAN -->
-                        <div class="galeri-caption">
-                            <?= htmlspecialchars($item->keterangan) ?>
                         </div>
 
                     </div>
@@ -50,66 +47,103 @@ $resultgalleri = mysqli_query($connect, $qgalleri) or die(mysqli_error($connect)
 
 <!-- PREVIEW -->
 <div id="galeriPreview" class="galeri-preview">
-    <span class="galeri-close" onclick="closePreview()">
-        <i class="bx bx-x"></i>
-    </span>
+    <span class="galeri-close" onclick="closePreview()">✕</span>
     <img id="previewImage" src="">
 </div>
 
-<!-- ================= CSS ================= -->
 <style>
+    /* SECTION */
     .galeri {
-        padding: 60px 0;
+        padding: 80px 0;
+        background: #ffffff;
     }
 
-    /* BORDER UTAMA */
-    .galeri-item {
-        border: 2px solid #000;
-        height: 100%;
+    /* TITLE */
+    .galeri-title {
+        font-weight: 700;
+        color: #1e293b;
     }
 
-    /* IMAGE FULL */
+    .galeri-subtitle {
+        color: #64748b;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    /* CARD */
+    .galeri-card {
+        border-radius: 28px;
+        overflow: hidden;
+        position: relative;
+        background: #fff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+        transition: .4s;
+    }
+
+    .galeri-card:hover {
+        transform: translateY(-10px) scale(1.02);
+    }
+
+    /* IMAGE */
     .galeri-img {
         position: relative;
-        width: 100%;
-        height: 260px;
+        height: 250px;
+        overflow: hidden;
     }
 
     .galeri-img img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: block;
+        transition: .5s;
     }
 
-    /* SEARCH ICON */
-    .galeri-search {
+    .galeri-card:hover img {
+        transform: scale(1.1);
+    }
+
+    /* OVERLAY HITAM TRANSPARAN */
+    .galeri-overlay {
         position: absolute;
-        bottom: 10px;
-        right: 10px;
-        width: 38px;
-        height: 38px;
-        background: #000;
-        color: #fff;
-        border: none;
-        font-size: 18px;
-        cursor: pointer;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: .4s ease;
     }
 
-    /* KETERANGAN */
-    .galeri-caption {
-        border-top: 2px solid #000;
-        padding: 10px;
-        font-size: 14px;
-        text-align: center;
-        background: #fff;
+    .galeri-card:hover .galeri-overlay {
+        opacity: 1;
+    }
+
+    /* TOMBOL HIJAU */
+    .galeri-btn {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        border: none;
+        background: #1FA67A;
+        color: #fff;
+        font-size: 22px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: .3s;
+    }
+
+    .galeri-btn:hover {
+        transform: scale(1.15);
+        background: #178f69;
     }
 
     /* PREVIEW */
     .galeri-preview {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.85);
+        background: rgba(15, 23, 42, .95);
         display: none;
         align-items: center;
         justify-content: center;
@@ -119,20 +153,26 @@ $resultgalleri = mysqli_query($connect, $qgalleri) or die(mysqli_error($connect)
     .galeri-preview img {
         max-width: 90%;
         max-height: 85%;
+        border-radius: 14px;
     }
 
-    /* CLOSE ICON */
     .galeri-close {
         position: absolute;
         top: 20px;
         right: 30px;
-        font-size: 40px;
+        font-size: 30px;
         color: #fff;
         cursor: pointer;
     }
+
+    /* RESPONSIVE */
+    @media(max-width:768px) {
+        .galeri-img {
+            height: 200px;
+        }
+    }
 </style>
 
-<!-- ================= JS ================= -->
 <script>
     function openPreview(img) {
         document.getElementById('previewImage').src = img;
@@ -143,5 +183,5 @@ $resultgalleri = mysqli_query($connect, $qgalleri) or die(mysqli_error($connect)
         document.getElementById('galeriPreview').style.display = 'none';
     }
 </script>
-<!-- BOXICONS -->
+
 <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">

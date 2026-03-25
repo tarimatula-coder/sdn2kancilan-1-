@@ -28,12 +28,6 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="../cooperations/index.php">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Kerja sama</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
                 <a class="sidebar-link" href="../contact/index.php">
                     <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Kontak</span>
                 </a>
@@ -68,12 +62,6 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="../blog/index.php">
-                    <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Blog</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
                 <a class="sidebar-link" href="../user/index.php">
                     <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">User</span>
                 </a>
@@ -104,6 +92,11 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="../galleries/index.php">
                     <i class="align-middle" data-feather="map"></i> <span class="align-middle">Galleri</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="../artikel/index.php">
+                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">Artikel</span>
                 </a>
             </li>
         </ul>

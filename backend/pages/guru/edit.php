@@ -36,13 +36,8 @@ include '../../partials/header.php';
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="mapelInput" class="form-label">Pembina</label>
-                                        <input type="text" name="mapel" class="form-control" id="mapelInput" placeholder="Masukkan Nama Mapel..." value="<?= $guru->mapel ?>" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="jenis_kelaminInput" class="form-label">Jenis kelamin</label>
-                                        <input type="text" name="jenis_kelamin" class="form-control" id="jenis_kelaminInput" placeholder="Masukkan Nama Jenis Kelamin..." value="<?= $guru->jenis_kelamin ?>" required>
+                                        <label for="jabatanInput" class="form-label">Pembina</label>
+                                        <input type="text" name="jabatan" class="form-control" id="jabatanInput" placeholder="Masukkan Nama jabatan..." value="<?= $guru->jabatan ?>" required>
                                     </div>
 
                                     <button type="submit" class="btn btn-success" name="tombol">Simpan</button>

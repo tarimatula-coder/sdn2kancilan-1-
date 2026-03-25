@@ -35,8 +35,7 @@ include '../../partials/header.php';
                                                 <th width="5%">No</th>
                                                 <th width="20%">Gambar</th>
                                                 <th>Nama</th>
-                                                <th>Mapel</th>
-                                                <th>Jenis kelamin</th>
+                                                <th>Jabatan</th>
                                                 <th width="25%">Aksi</th>
                                             </tr>
                                         </thead>
@@ -63,27 +62,13 @@ include '../../partials/header.php';
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="<?= $item->mapel ?>" target="_blank"
+                                                        <a href="<?= $item->jabatan ?>" target="_blank"
                                                             class="text-primary fw-semibold">
-                                                            <?= $item->mapel ?>
+                                                            <?= $item->jabatan ?>
                                                         </a>
                                                     </td>
-
-                                                    <td>
-                                                        <a href="<?= $item->jenis_kelamin ?>" target="_blank"
-                                                            class="text-primary fw-semibold">
-                                                            <?= $item->jenis_kelamin ?>
-                                                        </a>
-                                                    </td>
-
                                                     <td>
                                                         <div class="d-flex justify-content-center gap-2">
-
-                                                            <a href="./detail.php?id=<?= $item->id ?>"
-                                                                class="btn btn-success btn-sm d-flex align-items-center gap-1">
-                                                                <i class="ti ti-eye"></i>
-                                                                Detail
-                                                            </a>
 
                                                             <a href="./edit.php?id=<?= $item->id ?>"
                                                                 class="btn btn-warning btn-sm d-flex align-items-center gap-1">

@@ -34,8 +34,8 @@ include '../../partials/header.php';
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="textInput" class="form-label">Deskripsi</label>
-                                        <input type="text" name="text" class="form-control" id="text" placeholder="Masukan text...." required value="<?= $visi_misi->text ?>">
+                                        <label for="textInput" class="form-label">text</label>
+                                        <textarea name="text" class="form-control" id="textInput" rows="4" placeholder="Masukkan text..." required><?= $visi_misi->text ?></textarea>
                                     </div>
 
                                     <button type="submit" class="btn btn-success" name="tombol">Simpan</button>
@@ -46,10 +46,10 @@ include '../../partials/header.php';
                     </div>
                 </div>
             </div>
-         </main>
-         <?php
-         include '../../partials/footer.php';
-         ?>
+        </main>
+        <?php
+        include '../../partials/footer.php';
+        ?>
     </div>
 </div>
 <?php

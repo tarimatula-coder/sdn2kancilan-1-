@@ -22,11 +22,6 @@ include '../../partials/header.php';
                                 <form action="../../actions/galleri/store.php" method="POST" enctype="multipart/form-data">
 
                                     <div class="mb-3">
-                                        <label for="keteranganInput" class="form-label">Keterangan</label>
-                                        <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukan keterangan...." required>
-                                    </div>
-
-                                    <div class="mb-3">
                                         <label for="imageInput" class="form-label">pilih gambar</label>
                                         <input type="file" name="image" class="form-control" id="imageInput" required>
                                     </div>

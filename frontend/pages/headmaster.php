@@ -2,171 +2,146 @@
 $qheadmaster = "SELECT * FROM headmaster LIMIT 1";
 $resultheadmaster = mysqli_query($connect, $qheadmaster) or die(mysqli_error($connect));
 ?>
-<!-- Headmaster -->
-<section id="headmaster">
+
+<section id="headmaster" class="headmaster-section">
     <div class="container">
         <?php while ($item = $resultheadmaster->fetch_object()) : ?>
-            <div class="row align-items-center">
-                <!-- Bagian Kiri (Teks) -->
-                <div class="col-lg-6 mb-4 mb-lg-0">
-                    <h4>Sambutan Kepala Sekolah</h4>
+            <div class="row align-items-center g-5">
+
+                <!-- TEXT -->
+                <div class="col-lg-6">
+                    <h4 class="headmaster-title">SAMBUTAN KEPALA SEKOLAH</h4>
                     <div class="headmaster-text">
                         <?= $item->keterangan ?>
                     </div>
                 </div>
 
-                <!-- Bagian Kanan (Foto + Card Nama) -->
+                <!-- CARD FOTO -->
                 <div class="col-lg-6 text-center">
-                    <div class="headmaster-photo-wrapper">
-                        <div class="photo-circle">
-                            <img src="../storages/headmaster/<?= $item->image ?>"
-                                alt="<?= $item->name ?>"
-                                class="headmaster-photo">
+                    <div class="headmaster-card">
+
+                        <!-- FRAME -->
+                        <div class="frame-soft"></div>
+
+                        <!-- FOTO -->
+                        <div class="photo-box">
+                            <img src="../storages/headmaster/<?= $item->image ?>" alt="<?= $item->name ?>">
                         </div>
-                        <div class="headmaster-card">
-                            <h5 class="mb-0"><?= $item->name ?></h5>
+
+                        <!-- NAMA BADGE -->
+                        <div class="name-badge">
+                            <?= $item->name ?>
                         </div>
+
                     </div>
                 </div>
+
             </div>
         <?php endwhile; ?>
     </div>
 </section>
 
 <style>
-    /* =============================
-       WRAPPER FOTO
-    ============================== */
-    .headmaster-photo-wrapper {
+    /* SECTION */
+    .headmaster-section {
+        background: #f8fafc;
+        padding: 80px 0;
+    }
+
+    .headmaster-title {
+        font-weight: 700;
+        margin-bottom: 18px;
+        color: #1FA67A;
+        /* hijau tua soft */
+    }
+
+    /* INNER CARD - KETERANGAN */
+    .headmaster-text {
+        background: rgba(255, 255, 255, 0.95);
+        /* hitam semi transparan */
+        padding: 26px;
+        border-radius: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        /* border hitam transparan */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        /* shadow lembut */
+        line-height: 1.8;
+        color: #000000;
+        /* teks hitam */
+        font-size: 15px;
+        transition: 0.3s ease;
+    }
+
+    /* CARD FOTO */
+    .headmaster-card {
         position: relative;
-        display: inline-block;
-        text-align: center;
-        padding: 22px;
+        width: 300px;
+        margin: auto;
     }
 
-    /* LAYER BELAKANG */
-    .headmaster-photo-wrapper::before {
-        content: "";
+    .frame-soft {
         position: absolute;
-        width: 300px;
-        height: 380px;
-        background: linear-gradient(135deg, #e53935, #ff7043);
-        border-radius: 20px;
-        top: 0;
-        left: 0;
-        z-index: 0;
-    }
-
-    .headmaster-photo-wrapper::after {
-        content: "";
-        position: absolute;
-        width: 300px;
-        height: 380px;
-        background: #1b263b;
-        border-radius: 20px;
-        top: 10px;
-        left: 10px;
+        width: 100%;
+        height: 100%;
+        border: 5px solid rgba(27, 94, 32, 0.4);
+        border-radius: 24px;
+        transform: translate(25px, -20px);
         z-index: 1;
     }
 
-    /* FRAME UTAMA FOTO */
-    .photo-circle {
+    .photo-box {
         position: relative;
-        width: 300px;
-        height: 380px;
-        background: #0d1b2a;
-        border-radius: 20px;
-        padding: 10px;
-        margin: 0 auto 20px;
+        height: 390px;
+        background: rgba(255, 255, 255, 0.1);
+        /* tembus pandang */
+        border-radius: 30px;
+        overflow: hidden;
         z-index: 2;
+        box-shadow: 0 18px 40px rgba(27, 94, 32, 0.12);
+        transition: .35s ease;
     }
 
-    .headmaster-photo {
+    .photo-box img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 16px;
-        display: block;
     }
 
-    /* CARD NAMA */
-    .headmaster-card {
-        position: relative;
-        z-index: 3;
-        background: rgba(255, 255, 255, 0.96);
-        border-radius: 16px;
-        padding: 14px 32px;
-        display: inline-block;
-        border-bottom: 5px solid #e53935;
-    }
-
-    .headmaster-card h5 {
-        font-family: 'Poppins', sans-serif;
+    /* NAME BADGE / BUTTON - hijau tua soft */
+    .name-badge {
+        position: absolute;
+        bottom: -18px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #1FA67A;
+        /* hijau tua soft */
+        padding: 12px 30px;
+        width: 200px;
+        border-radius: 999px;
         font-weight: 600;
-        font-size: 1.05rem;
-        color: #0d1b2a;
-        margin: 0;
+        font-size: 14px;
+        color: #ffffff;
+        box-shadow: 0 8px 20px rgba(20, 90, 22, 0.25);
+        /* shadow lembut hijau */
+        z-index: 3;
+        border: 2px solid #1FA67A;
+        /* aksen hijau tua */
+        transition: 0.3s ease;
     }
 
-    /* =============================
-       KETERANGAN / TEXT CARD
-    ============================== */
-    .headmaster-text {
-        position: relative;
-        background: #fff;
-        /* warna putih agar teks jelas */
-        border-radius: 16px;
-        padding: 20px 25px;
-        border: 2px solid #000;
-        /* border hitam */
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        /* shadow lembut */
-        font-size: 1rem;
-        line-height: 1.6;
-        color: #0d1b2a;
-    }
-
-    /* =============================
-       RESPONSIVE TABLET
-    ============================== */
-    @media (max-width: 992px) {
-
-        .photo-circle,
-        .headmaster-photo-wrapper::before,
-        .headmaster-photo-wrapper::after {
-            width: 260px;
-            height: 330px;
-        }
-
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
         .headmaster-card {
-            padding: 12px 28px;
-        }
-    }
-
-    /* =============================
-       RESPONSIVE MOBILE
-    ============================== */
-    @media (max-width: 576px) {
-
-        .photo-circle,
-        .headmaster-photo-wrapper::before,
-        .headmaster-photo-wrapper::after {
-            width: 220px;
-            height: 280px;
+            width: 230px;
         }
 
-        .headmaster-card {
-            padding: 10px 22px;
-            border-bottom-width: 4px;
+        .photo-box {
+            height: 300px;
         }
 
-        .headmaster-card h5 {
-            font-size: 0.95rem;
-        }
-
+        .headmaster-title,
         .headmaster-text {
-            padding: 15px 18px;
-            font-size: 0.95rem;
+            text-align: center;
         }
     }
 </style>

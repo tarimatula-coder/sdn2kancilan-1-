@@ -5,10 +5,6 @@ include './show.php';
 if (isset($_POST['tombol'])) {
     $imageNew = $pencapaian->image;
     $nama = escapeString($_POST['nama']);
-    $kategori = escapeString($_POST['kategori']);
-    $tingkat = escapeString($_POST['tingkat']);
-    $tahun = escapeString($_POST['tahun']);
-    $peraih = escapeString($_POST['peraih']);
     $keterangan = escapeString($_POST['keterangan']);
     $storages = "../../../storages/pencapaian/";
 
@@ -26,7 +22,7 @@ if (isset($_POST['tombol'])) {
         move_uploaded_file($imageOld, $storages . $imageNew);
     }
 
-    $qUpdate = "UPDATE pencapaian SET image='$imageNew', nama='$nama', kategori='$kategori', tingkat='$tingkat', tahun='$tahun', peraih='$peraih', keterangan='$keterangan' WHERE id='$id'";
+    $qUpdate = "UPDATE pencapaian SET image='$imageNew', nama='$nama', keterangan='$keterangan' WHERE id='$id'";
 
     $result = mysqli_query($connect, $qUpdate) or die(mysqli_error($connect));
     if ($result) {

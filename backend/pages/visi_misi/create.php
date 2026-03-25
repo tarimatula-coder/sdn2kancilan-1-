@@ -31,8 +31,8 @@ include '../../partials/header.php';
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="textInput" class="form-label">Deskripsi</label>
-                                        <input type="text" name="text" class="form-control" id="text" placeholder="Masukan text...." required>
+                                        <label for="textInput" class="form-label">text</label>
+                                        <textarea name="text" class="form-control" id="textInput" rows="5" placeholder="Masukkan text..." required></textarea>
                                     </div>
 
                                     <button type="submit" class="btn btn-success" name="tombol">Tambah</button>

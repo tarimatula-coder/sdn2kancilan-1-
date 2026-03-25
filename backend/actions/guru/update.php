@@ -5,8 +5,7 @@ include './show.php';
 if (isset($_POST['tombol'])) {
     $imageNew = $guru->image;
     $nama = escapeString($_POST['nama']);
-    $mapel = escapeString($_POST['mapel']);
-    $jenis_kelamin = escapeString($_POST['jenis_kelamin']);
+    $jabatan = escapeString($_POST['jabatan']);
     $storages = "../../../storages/guru/";
 
     //cek apakah user mengupload gambar baru
@@ -23,7 +22,7 @@ if (isset($_POST['tombol'])) {
         move_uploaded_file($imageOld, $storages . $imageNew);
     }
 
-    $qUpdate = "UPDATE guru SET image='$imageNew', nama='$nama', mapel='$mapel', jenis_kelamin='$jenis_kelamin' WHERE id='$id'";
+    $qUpdate = "UPDATE guru SET image='$imageNew', nama='$nama', jabatan='$jabatan' WHERE id='$id'";
 
     $result = mysqli_query($connect, $qUpdate) or die(mysqli_error($connect));
     if ($result) {

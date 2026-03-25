@@ -6,12 +6,11 @@ if (isset($_POST['tombol'])) {
     $imageOld = $_FILES['image']['tmp_name'];
     $imageNew = time() . ".png";
     $nama = escapeString($_POST['nama']);
-    $mapel = escapeString($_POST['mapel']);
-    $jenis_kelamin = escapeString($_POST['jenis_kelamin']);
+    $jabatan = escapeString($_POST['jabatan']);
 
     $storages = "../../../storages/guru/";
     if (move_uploaded_file($imageOld, $storages . $imageNew)) {
-        $qInsert = "INSERT INTO guru(image, nama, mapel, jenis_kelamin) VALUES('$imageNew', '$nama', '$mapel', '$jenis_kelamin')";
+        $qInsert = "INSERT INTO guru(image, nama, jabatan) VALUES('$imageNew', '$nama', '$jabatan')";
 
         mysqli_query($connect, $qInsert) or die(mysqli_error($connect));
         echo " 

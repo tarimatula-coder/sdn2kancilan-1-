@@ -30,7 +30,6 @@ $result = mysqli_query($connect, $qGalleris) or die(mysqli_error($connect));
                                             <tr>
                                                 <th class="text-center">No</th>
                                                 <th class="text-center">Gambar</th>
-                                                <th class="text-center">Keterangan</th>
                                                 <th class="text-center">Aksi</th>
                                             </tr>
                                         </thead>
@@ -46,15 +45,8 @@ $result = mysqli_query($connect, $qGalleris) or die(mysqli_error($connect));
                                                             class="img-thumbnail"
                                                             style="width:150px; height:auto;">
                                                     </td>
-                                                    <td class="text-center"><?= $item->keterangan ?></td>
                                                     <td>
                                                         <div class="d-flex justify-content-center gap-2">
-
-                                                            <a href="./detail.php?id=<?= $item->id ?>"
-                                                                class="btn btn-success btn-sm d-flex align-items-center gap-1">
-                                                                <i class="ti ti-eye"></i>
-                                                                Detail
-                                                            </a>
 
                                                             <a href="./edit.php?id=<?= $item->id ?>"
                                                                 class="btn btn-warning btn-sm d-flex align-items-center gap-1">

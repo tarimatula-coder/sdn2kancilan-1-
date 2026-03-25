@@ -5,78 +5,78 @@ $resultabout = mysqli_query($connect, $qabout) or die(mysqli_error($connect));
 
 <section class="hero-slider" id="hero-slider">
 
-    <?php $i = 0;
-    while ($item = $resultabout->fetch_object()) : ?>
-        <div class="hero-slide <?= $i === 0 ? 'active' : '' ?>"
-            style="background-image: url('../storages/about/<?= $item->banner ?>');">
+    <div class="hero-wrapper">
 
-            <div class="hero-overlay"></div>
+        <?php while ($item = $resultabout->fetch_object()) : ?>
+            <div class="hero-slide"
+                style="background-image: url('../storages/about/<?= $item->banner ?>');">
 
-            <div class="hero-content">
-                <h1><?= $item->name ?></h1>
-                <p class="hero-desc"><?= $item->keterangan ?></p>
-                <p class="hero-address">📍 <?= $item->alamat ?></p>
+                <div class="hero-overlay"></div>
 
-                <div class="hero-btn">
-                    <a href="#about" class="btn-get-started">Tentang Sekolah</a>
-                    <a href="#contact" class="btn-outline">Kontak</a>
+                <div class="hero-content">
+                    <h1><?= $item->name ?></h1>
+                    <p class="hero-desc"><?= $item->keterangan ?></p>
+                    <p class="hero-address"><?= $item->alamat ?></p>
+
+                    <div class="hero-btn">
+                        <a href="#about" class="btn-get-started">Tentang Sekolah</a>
+                        <a href="#contact" class="btn-outline">Kontak</a>
+                    </div>
                 </div>
-            </div>
-        </div>
-    <?php $i++;
-    endwhile; ?>
 
-    <!-- DOT NAVIGATION -->
-    <div class="hero-dots">
-        <?php for ($j = 0; $j < $i; $j++): ?>
-            <span class="dot <?= $j === 0 ? 'active' : '' ?>" data-slide="<?= $j ?>"></span>
-        <?php endfor; ?>
+            </div>
+        <?php endwhile; ?>
+
     </div>
 
 </section>
+
 <style>
-    /* =========================
-   HERO SLIDER
-========================= */
+    /* RESET */
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* HERO SLIDER */
     .hero-slider {
         position: relative;
         width: 100%;
-        height: 90vh;
-        min-height: 500px;
+        height: 100vh;
         overflow: hidden;
+        margin: 0;
+        padding: 0;
     }
 
+    /* WRAPPER */
+    .hero-wrapper {
+        display: flex;
+        height: 100%;
+        transition: transform 1s ease;
+    }
+
+    /* SLIDE */
     .hero-slide {
-        position: absolute;
-        inset: 0;
+        min-width: 100%;
+        height: 100%;
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
-
-        opacity: 0;
-        transform: scale(1.05);
-        transition: opacity 1s ease, transform 1.2s ease;
-
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
+        position: relative;
     }
 
-    .hero-slide.active {
-        opacity: 1;
-        transform: scale(1);
-        z-index: 1;
-    }
-
-    /* Overlay */
+    /* OVERLAY */
     .hero-overlay {
         position: absolute;
         inset: 0;
         background: rgba(0, 0, 0, 0.55);
     }
 
-    /* Konten */
+    /* CONTENT */
     .hero-content {
         position: relative;
         z-index: 2;
@@ -85,6 +85,7 @@ $resultabout = mysqli_query($connect, $qabout) or die(mysqli_error($connect));
         color: #ffffff;
     }
 
+    /* TEXT */
     .hero-content h1 {
         font-size: 48px;
         font-weight: 700;
@@ -101,7 +102,7 @@ $resultabout = mysqli_query($connect, $qabout) or die(mysqli_error($connect));
         margin-bottom: 32px;
     }
 
-    /* Button */
+    /* BUTTON */
     .hero-btn {
         display: flex;
         justify-content: center;
@@ -127,34 +128,8 @@ $resultabout = mysqli_query($connect, $qabout) or die(mysqli_error($connect));
         text-decoration: none;
     }
 
-    /* DOT */
-    .hero-dots {
-        position: absolute;
-        bottom: 25px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 10px;
-        z-index: 10;
-    }
-
-    .hero-dots .dot {
-        width: 12px;
-        height: 12px;
-        background: rgba(255, 255, 255, 0.5);
-        border-radius: 50%;
-        cursor: pointer;
-    }
-
-    .hero-dots .dot.active {
-        background: #ffffff;
-    }
-
     /* RESPONSIVE */
-    @media (max-width: 768px) {
-        .hero-slider {
-            height: 80vh;
-        }
+    @media (max-width:768px) {
 
         .hero-content h1 {
             font-size: 32px;
@@ -167,31 +142,27 @@ $resultabout = mysqli_query($connect, $qabout) or die(mysqli_error($connect));
         .hero-address {
             font-size: 15px;
         }
+
     }
 </style>
-<script>
-    const slides = document.querySelectorAll('.hero-slide');
-    const dots = document.querySelectorAll('.dot');
-    let current = 0;
 
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-            dots[i].classList.toggle('active', i === index);
-        });
-        current = index;
-    }
+<script>
+    const wrapper = document.querySelector('.hero-wrapper');
+    const slides = document.querySelectorAll('.hero-slide');
+
+    let index = 0;
 
     function nextSlide() {
-        let next = (current + 1) % slides.length;
-        showSlide(next);
+
+        index++;
+
+        if (index >= slides.length) {
+            index = 0;
+        }
+
+        wrapper.style.transform = `translateX(-${index * 100}%)`;
+
     }
 
-    setInterval(nextSlide, 5000); // ganti slide tiap 5 detik
-
-    dots.forEach(dot => {
-        dot.addEventListener('click', () => {
-            showSlide(parseInt(dot.dataset.slide));
-        });
-    });
+    setInterval(nextSlide, 5000);
 </script>

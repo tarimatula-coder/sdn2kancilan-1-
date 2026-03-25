@@ -42,7 +42,12 @@ $result = mysqli_query($connect, $qVisiMisi) or die(mysqli_error($connect));
                                                 <tr>
                                                     <td><?= $no ?></td>
                                                     <td><?= $item->category ?></td>
-                                                    <td style="width:50%"><?= $item->text ?></td>
+                                                    <td>
+                                                        <div style="text-align:left;">
+                                                            <?= nl2br($item->text); ?>
+                                                        </div>
+                                                    </td>
+
                                                     <td>
                                                         <div class="d-flex justify-content-center gap-2">
 
@@ -83,6 +88,11 @@ $result = mysqli_query($connect, $qVisiMisi) or die(mysqli_error($connect));
 
 <?php include '../../partials/script.php'; ?>
 <style>
+    td div {
+        white-space: pre-line;
+        line-height: 1.3;
+    }
+
     /* ===== ANIMASI GRADIENT ===== */
     @keyframes gradientMove {
         0% {
