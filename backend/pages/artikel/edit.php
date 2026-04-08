@@ -31,6 +31,12 @@ include '../../partials/header.php';
                                     </div>
 
                                     <div class="mb-3">
+                                        <img class="w-25" src="../../../storages/artikel/<?= $artikel->foto ?>" alt="">
+                                        <label for="fotoInput" class="form-label"></label>
+                                        <input type="file" name="foto" class="form-control" id="fotoInput" required>
+                                    </div>
+
+                                    <div class="mb-3">
                                         <label for="namaInput" class="form-label">Nama</label>
                                         <input type="text" name="nama" class="form-control" id="namaInput" placeholder="Masukkan Nama..." value="<?= $artikel->nama ?>" required>
                                     </div>
@@ -41,8 +47,8 @@ include '../../partials/header.php';
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="deskripsiInput" class="form-label">deskripsi</label>
-                                        <textarea name="deskripsi" class="form-control" id="deskripsiInput" rows="4" placeholder="Masukkan deskripsi..." required><?= $artikel->deskripsi ?></textarea>
+                                        <label for="keteranganInput" class="form-label">keterangan</label>
+                                        <textarea name="keterangan" class="form-control" id="keteranganInput" rows="4" placeholder="Masukkan keterangan..." required><?= $artikel->keterangan ?></textarea>
                                     </div>
 
                                     <button type="submit" class="btn btn-success" name="tombol">Simpan</button>

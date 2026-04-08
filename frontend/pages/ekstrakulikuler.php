@@ -4,7 +4,10 @@ $qekstrakulikuler = "SELECT * FROM ekstrakulikuler LIMIT 3";
 $resultekstrakulikuler = mysqli_query($connect, $qekstrakulikuler);
 ?>
 
-<section class="ekstrakulikuler" id="ekstrakulikuler">
+<section class="ekstrakulikuler" id="ekstrakulikuler" style="
+    padding:100px 0 60px; /* 🔥 sama seperti artikel */
+    background:#f1f5f9;   /* 🔥 bukan putih */
+">
 
     <div class="container">
 
@@ -35,7 +38,7 @@ $resultekstrakulikuler = mysqli_query($connect, $qekstrakulikuler);
                             </p>
 
                             <div class="btn-wrapper">
-                                <a href="./pages/detail/ekstrakulikuler.php?id=<?= $item->id ?>" class="btn-detail">
+                                <a href="./pages/asla/ekstrakulikuler.php?id=<?= $item->id ?>" class="btn-detail">
                                     Selengkapnya
                                 </a>
                             </div>
@@ -55,11 +58,6 @@ $resultekstrakulikuler = mysqli_query($connect, $qekstrakulikuler);
 
 
 <style>
-    .ekskul-section {
-        padding: 90px 20px;
-        background: #f1f5f9;
-    }
-
     .title {
         font-size: 34px;
         font-weight: 700;
@@ -72,9 +70,7 @@ $resultekstrakulikuler = mysqli_query($connect, $qekstrakulikuler);
         margin-top: 5px;
     }
 
-
     /* CARD */
-
     .ekskul-card {
         background: #ffffff;
         border-radius: 22px;
@@ -92,12 +88,9 @@ $resultekstrakulikuler = mysqli_query($connect, $qekstrakulikuler);
         box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
     }
 
-
     /* IMAGE */
-
     .img-box {
         padding: 20px 20px 10px 20px;
-        /* tambah jarak bawah */
     }
 
     .img-box img {
@@ -107,9 +100,7 @@ $resultekstrakulikuler = mysqli_query($connect, $qekstrakulikuler);
         border-radius: 14px;
     }
 
-
     /* BODY */
-
     .card-body {
         padding: 20px 35px 35px 35px;
         display: flex;
@@ -123,7 +114,6 @@ $resultekstrakulikuler = mysqli_query($connect, $qekstrakulikuler);
         font-weight: 700;
         color: #1e293b;
         margin-top: 10px;
-        /* jarak dari gambar */
         margin-bottom: 15px;
     }
 
@@ -136,9 +126,7 @@ $resultekstrakulikuler = mysqli_query($connect, $qekstrakulikuler);
         text-align: left;
     }
 
-
     /* BUTTON */
-
     .btn-wrapper {
         margin-top: auto;
         padding: 0 20px 10px 20px;

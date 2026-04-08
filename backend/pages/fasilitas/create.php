@@ -21,7 +21,7 @@ include '../../partials/header.php';
                                 <h5>Tambah data fasilitas</form></h5>
                             </div>
                             <div class="card-body">
-                                <form action="../../actions/fasilitas/store.php" method="POST" enctype="multipart/form-data"></form>
+                                <form action="../../actions/fasilitas/store.php" method="POST" enctype="multipart/form-data">
 
                                     <div class="mb-3">
                                         <label for="imageInput" class="form-label">pilih gambar</label>

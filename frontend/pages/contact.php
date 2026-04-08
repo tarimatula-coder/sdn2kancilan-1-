@@ -145,13 +145,6 @@ $resultContact = mysqli_query($connect, $qContact);
                                 $link = "https://wa.me/" . $nomor . "?text=" . $pesan;
                             }
 
-                            /* ================= INSTAGRAM ================= */
-
-                            if (strpos($ket, 'instagram') !== false) {
-
-                                $link = "instagram://user?username=aslamiyah.journey";
-                            }
-
                         ?>
 
                             <div class="col-lg-3 col-md-6 mb-3">

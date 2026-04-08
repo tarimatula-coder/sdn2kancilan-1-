@@ -1,5 +1,15 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 include '../../app.php';
+
+// cek login
+if (!isset($_SESSION['email'])) {
+    header("Location: ../auth/login.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

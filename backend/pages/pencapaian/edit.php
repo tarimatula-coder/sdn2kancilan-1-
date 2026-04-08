@@ -32,14 +32,14 @@ include '../../partials/header.php';
 
                                     <div class="mb-3">
                                         <label for="namaInput" class="form-label">Nama</label>
-                                        <input type="text" name="nama" class="form-control" id="namaInput" placeholder="Masukkan Nama..." value="<?= $pencapaian->nama ?>" required>
+                                        <textarea name="nama" class="form-control" id="namaInput" rows="4" placeholder="Masukkan nama..." required><?= $pencapaian->nama ?></textarea>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="keteranganInput" class="form-label">Keterangan</label>
                                         <textarea name="keterangan" class="form-control" id="keteranganInput" rows="4" placeholder="Masukkan Keterangan..." required><?= $pencapaian->keterangan ?></textarea>
                                     </div>
-                                    
+
                                     <button type="submit" class="btn btn-success" name="tombol">Simpan</button>
                                     <a href="./index.php" class="btn btn-primary">Kembali</a>
                                 </form>

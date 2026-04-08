@@ -51,6 +51,14 @@ include '../../partials/header.php';
                                             </button>
                                         </div>
                                     </div>
+                                    <div class="mb-3">
+                                        <label>Level</label>
+                                        <select name="level" class="form-control" required>
+                                            <option value="admin" <?= $user->level == 'admin' ? 'selected' : '' ?>>Admin</option>
+                                            <option value="editor" <?= $user->level == 'editor' ? 'selected' : '' ?>>Editor</option>
+                                            <option value="pengguna" <?= $user->level == 'pengguna' ? 'selected' : '' ?>>Pengguna</option>
+                                        </select>
+                                    </div>
 
                                     <button type="submit" class="btn btn-success" name="tombol">Simpan</button>
                                     <a href="./index.php" class="btn btn-primary">Kembali</a>

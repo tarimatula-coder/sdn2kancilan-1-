@@ -29,6 +29,12 @@ include '../../partials/header.php';
                                     </div>
 
                                     <div class="mb-3">
+                                        <label for="fotoInput" class="form-label">pilih gambar</label>
+                                        <input type="file" name="foto" class="form-control" id="fotoInput" required>
+                                    </div>
+
+
+                                    <div class="mb-3">
                                         <label for="namaInput" class="form-label">Nama</label>
                                         <input type="text" name="nama" class="form-control" id="namaInput" placeholder="Masukkan Nama..." required>
                                     </div>
@@ -39,8 +45,8 @@ include '../../partials/header.php';
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="dekripsiInput" class="form-label">dekripsi</label>
-                                        <textarea name="dekripsi" class="form-control" id="dekripsiInput" rows="5" placeholder="Masukkan dekripsi..." required></textarea>
+                                        <label for="keteranganInput" class="form-label">keterangan</label>
+                                        <textarea name="keterangan" class="form-control" id="keteranganInput" rows="5" placeholder="Masukkan keterangan..." required></textarea>
                                     </div>
 
                                     <button type="submit" class="btn btn-success" name="tombol">Tambah</button>

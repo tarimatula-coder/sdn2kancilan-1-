@@ -9,8 +9,10 @@
     include 'pages/unggulan.php';
     include 'pages/headmaster.php';
     include 'pages/ekstrakulikuler.php';
+    include 'pages/artikel.php';
     include 'pages/visi_misi.php';
     include 'pages/pencapaian.php';
+    include 'pages/fasilitas.php';
     include 'pages/galleri.php';
     include 'pages/contact.php';
     ?>

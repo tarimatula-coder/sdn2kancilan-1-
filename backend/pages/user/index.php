@@ -1,18 +1,22 @@
 <?php
 include '../../partials/header.php';
 
+// ================= BATASI HAK AKSES =================
+if (!isset($_SESSION['email'])) {
+    header("Location: ../../pages/auth/login.php");
+    exit;
+}
+
+$role = $_SESSION['role'] ?? 'pengguna'; // default siswa
+
 $qUser = "SELECT * FROM user";
 $result = mysqli_query($connect, $qUser) or die(mysqli_error($connect));
 ?>
 
 <div class="wrapper">
-
     <?php include '../../partials/sidebar.php'; ?>
-
     <div class="main">
-
         <?php include '../../partials/navbar.php'; ?>
-
         <main class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -20,60 +24,53 @@ $result = mysqli_query($connect, $qUser) or die(mysqli_error($connect));
                         <div class="card mb-3">
                             <div class="card-header d-flex align-items-center justify-content-between">
                                 <h5>Tabel User</h5>
-                                <a href="./create.php" class="btn btn-primary">Tambah</a>
+                                <?php if (in_array($role, ['admin'])): ?>
+                                    <a href="./create.php" class="btn btn-primary">Tambah</a>
+                                <?php endif; ?>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table id="datatable" class="table table-bordered table-hover align-middle text-center w-100">
                                         <thead class="table-dark">
                                             <tr>
-                                                <th class="text-center">No</th>
-                                                <th class="text-center">Nama</th>
-                                                <th class="text-center">Email</th>
-                                                <th class="text-center">Password</th>
-                                                <th class="text-center">Selengkapnya</th>
+                                                <th>No</th>
+                                                <th>Nama</th>
+                                                <th>Email</th>
+                                                <th>Password</th>
+                                                <th>Level</th>
+                                                <?php if (in_array($role, ['admin'])): ?>
+                                                    <th>Selengkapnya</th>
+                                                <?php endif; ?>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                            $no = 1;
-                                            while ($item = $result->fetch_object()):
-                                            ?>
+                                            <?php $no = 1;
+                                            while ($item = $result->fetch_object()): ?>
                                                 <tr>
-                                                    <td class="text-center"><?= $no ?></td>
+                                                    <td><?= $no ?></td>
+                                                    <td><?= htmlspecialchars($item->name) ?></td>
+                                                    <td><?= htmlspecialchars($item->email) ?></td>
+                                                    <td><?= htmlspecialchars($item->password) ?></td> <!-- tampilkan hashed -->
+                                                    <td><?= htmlspecialchars($item->level) ?></td>
 
-                                                    <td class="text-center"><?= $item->name ?></td>
-                                                    <td class="text-center"><?= $item->email ?></td>
-                                                    <td class="text-center"><?= $item->password ?></td>
-                                                    <td>
-                                                        <div class="d-flex justify-content-center gap-2">
+                                                    <?php if (in_array($role, ['admin'])): ?>
+                                                        <td>
+                                                            <div class="d-flex justify-content-center gap-2">
+                                                                <a href="./edit.php?id=<?= $item->id ?>" class="btn btn-warning btn-sm">
+                                                                    <i class="ti ti-edit"></i> Edit
+                                                                </a>
 
-                                                            <a href="./detail.php?id=<?= $item->id ?>"
-                                                                class="btn btn-success btn-sm d-flex align-items-center gap-1">
-                                                                <i class="ti ti-eye"></i>
-                                                                Detail
-                                                            </a>
-
-                                                            <a href="./edit.php?id=<?= $item->id ?>"
-                                                                class="btn btn-warning btn-sm d-flex align-items-center gap-1">
-                                                                <i class="ti ti-edit"></i>
-                                                                Edit
-                                                            </a>
-
-                                                            <a href="../../actions/user/destroy.php?id=<?= $item->id ?>"
-                                                                onclick="return confirm('Yakin hapus data ini?')"
-                                                                class="btn btn-danger btn-sm d-flex align-items-center gap-1">
-                                                                <i class="ti ti-trash"></i>
-                                                                Hapus
-                                                            </a>
-
-                                                        </div>
-                                                    </td>
+                                                                <?php if ($role == 'admin'): ?>
+                                                                    <a href="../../actions/user/destroy.php?id=<?= $item->id ?>" onclick="return confirm('Yakin hapus data ini?')" class="btn btn-danger btn-sm">
+                                                                        <i class="ti ti-trash"></i> Hapus
+                                                                    </a>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </td>
+                                                    <?php endif; ?>
                                                 </tr>
-                                            <?php
-                                                $no++;
-                                            endwhile;
-                                            ?>
+                                            <?php $no++;
+                                            endwhile; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -83,73 +80,46 @@ $result = mysqli_query($connect, $qUser) or die(mysqli_error($connect));
                 </div>
             </div>
         </main>
-        <?php
-        include '../../partials/footer.php';
-        ?>
+        <?php include '../../partials/footer.php'; ?>
     </div>
 </div>
 
-<?php
-include '../../partials/script.php';
-?>
+<?php include '../../partials/script.php'; ?>
 <style>
-    /* ===== ANIMASI GRADIENT ===== */
     @keyframes gradientMove {
         0% {
-            background-position: 0% 50%;
+            background-position: 0% 50%
         }
 
         50% {
-            background-position: 100% 50%;
+            background-position: 100% 50%
         }
 
         100% {
-            background-position: 0% 50%;
+            background-position: 0% 50%
         }
     }
 
-    /* ===== CARD ===== */
     .card {
-        background: linear-gradient(120deg,
-                #ecfdf5,
-                /* hijau muda */
-                #dbeafe,
-                /* biru muda */
-                #e0f2fe,
-                /* biru soft */
-                #f0fdfa
-                /* hijau lembut */
-            );
+        background: linear-gradient(120deg, #ecfdf5, #dbeafe, #e0f2fe, #f0fdfa);
         background-size: 300% 300%;
-        animation:
-            fadeSlideUp 0.8s ease forwards,
-            gradientMove 9s ease infinite;
-
+        animation: gradientMove 9s ease infinite;
         border: none;
         border-radius: 16px;
         box-shadow: 0 12px 28px rgba(16, 185, 129, 0.18);
     }
 
-    /* ===== HEADER CARD ===== */
     .card-header {
-        background: linear-gradient(90deg,
-                #059669,
-                /* hijau */
-                #0ea5e9,
-                /* biru */
-                #0284c7
-                /* biru tua */
-            );
+        background: linear-gradient(90deg, #059669, #0ea5e9, #0284c7);
         background-size: 200% 200%;
         animation: gradientMove 6s ease infinite;
-
-        color: #ffffff;
+        color: #fff;
         border-radius: 16px 16px 0 0;
         padding: 16px 22px;
     }
 
     .card-header h5 {
-        color: #ffffff;
+        color: #fff;
         font-weight: 600;
     }
 </style>

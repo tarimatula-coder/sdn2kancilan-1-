@@ -1,4 +1,3 @@
-
 <?php
 // Ambil data tentang sekolah
 $qabout = "SELECT * FROM about LIMIT 1";
@@ -25,14 +24,14 @@ $aboutHeader = mysqli_fetch_object($resultabout);
                 <div class="menu-col">
                     <a href="#hero-slider">Home</a>
                     <a href="#headmaster">Kepala Sekolah</a>
-                    <a href="#ekstrakulikuler">Ekstrakulikuler</a>
-                    <a href="#pencapaian">Prestasi</a>
+                    <a href="pages/detail/ekstrakulikuler.php#ekstrakulikuler">Ekstrakulikuler</a>
+                    <a href="pages/detail/pencapaian.php#pencapaian">Prestasi</a>
                 </div>
 
                 <div class="menu-col">
-                    <a href="#galeriPreview">Galeri</a>
+                    <a href="pages/detail/galleri.php#galeri">Galeri</a>
                     <a href="#visi-misi">Visi Misi</a>
-                    <a href="guru.php">Guru</a>
+                    <a href="pages/detail/guru.php#guru">Guru</a>
                     <a href="#contact">Kontak</a>
                 </div>
 

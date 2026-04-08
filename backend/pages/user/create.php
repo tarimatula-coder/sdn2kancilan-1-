@@ -40,6 +40,16 @@ include '../../partials/header.php';
                                             </button>
                                         </div>
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="levelInput" class="form-label">Level</label>
+                                        <select name="level" id="levelInput" class="form-control" required>
+                                            <option value="">-- Pilih Level --</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="editor">Editor</option>
+                                            <option value="pengguna">Pengguna</option>
+                                        </select>
+                                    </div>
+
 
                                     <button type="submit" class="btn btn-success" name="tombol">Tambah</button>
                                     <a href="./index.php" class="btn btn-primary">Kembali</a>

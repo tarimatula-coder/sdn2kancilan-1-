@@ -3,29 +3,43 @@ include '../../app.php';
 
 if (isset($_POST['tombol'])) {
 
-    $imageOld = $_FILES['image']['tmp_name'];
-    $imageNew = time() . ".png";
-    $nama = escapeString($_POST['nama']);
-    $tanggal = escapeString($_POST['tanggal']);
-    $deskripsi = escapeString($_POST['deskripsi']);
+    // ===== IMAGE =====
+    $imageTmp  = $_FILES['image']['tmp_name'];
+    $imageExt  = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+    $imageNew  = time() . "_image." . $imageExt;
 
-    $storages = "../../../storages/artikel/";
-    if (move_uploaded_file($imageOld, $storages . $imageNew)) {
-        $qInsert = "INSERT INTO artikel(image, nama, tanggal, deskripsi) VALUES('$imageNew', '$nama', '$tanggal', '$deskripsi')";
+    // ===== FOTO =====
+    $fotoTmp   = $_FILES['foto']['tmp_name'];
+    $fotoExt   = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
+    $fotoNew   = time() . "_foto." . $fotoExt;
 
-        mysqli_query($connect, $qInsert) or die(mysqli_error($connect));
-        echo " 
-    <script>    
-        alert('Data berhasil ditambah');
-        window.location.href='../../pages/artikel/index.php';
-    </script>
-            ";
+    // ===== DATA =====
+    $nama       = escapeString($_POST['nama']);
+    $tanggal    = escapeString($_POST['tanggal']);
+    $keterangan = escapeString($_POST['keterangan']);
+
+    // ===== FOLDER =====
+    $folder = "../../../storages/artikel/";
+
+    // ===== UPLOAD =====
+    if (
+        move_uploaded_file($imageTmp, $folder . $imageNew) &&
+        move_uploaded_file($fotoTmp, $folder . $fotoNew)
+    ) {
+
+        $query = "INSERT INTO artikel (image, foto, nama, tanggal, keterangan)
+                  VALUES ('$imageNew', '$fotoNew', '$nama', '$tanggal', '$keterangan')";
+
+        mysqli_query($connect, $query) or die(mysqli_error($connect));
+
+        echo "<script>
+                alert('Data berhasil ditambah');
+                window.location.href='../../pages/artikel/index.php';
+              </script>";
     } else {
-        echo "
-    <script>    
-        alert('Data gagal ditambah');
-        window.location.href='../../pages/artikel/create.php';
-    </script>
-    ";
+        echo "<script>
+                alert('Upload gagal!');
+                window.location.href='../../pages/artikel/create.php';
+              </script>";
     }
 }

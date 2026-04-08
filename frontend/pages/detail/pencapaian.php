@@ -1,12 +1,29 @@
 <?php
 include '../../../config/connection.php';
 
-/* ABOUT */
-$qabout = mysqli_query($connect, "SELECT * FROM about LIMIT 1");
-$aboutHeader = mysqli_fetch_object($qabout);
+$current_page = basename($_SERVER['PHP_SELF']);
 
-/* PENCAPAIAN */
-$qPencapaian = mysqli_query($connect, "SELECT * FROM pencapaian");
+/* ================= ABOUT ================= */
+$qabout = "SELECT * FROM about";
+$resultabout = mysqli_query($connect, $qabout) or die(mysqli_error($connect));
+
+/* ================= PAGINATION PENCAPAIAN ================= */
+$limit = 6; // jumlah prestasi per halaman
+$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+$offset = ($page - 1) * $limit;
+
+// total prestasi
+$totalResult = mysqli_query($connect, "SELECT COUNT(*) AS total FROM pencapaian");
+$totalRow = mysqli_fetch_assoc($totalResult);
+$totalPrestasi = $totalRow['total'];
+$totalPages = ceil($totalPrestasi / $limit);
+
+// query prestasi untuk halaman ini
+$qPencapaian = mysqli_query($connect, "SELECT * FROM pencapaian LIMIT $limit OFFSET $offset");
+
+// ambil 1 data untuk judul/footer default
+$qaboutHeader = mysqli_query($connect, "SELECT * FROM about LIMIT 1");
+$aboutHeader = mysqli_fetch_object($qaboutHeader);
 ?>
 
 <!DOCTYPE html>
@@ -15,10 +32,7 @@ $qPencapaian = mysqli_query($connect, "SELECT * FROM pencapaian");
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($aboutHeader->name ?? 'Sekolah') ?></title>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -26,14 +40,13 @@ $qPencapaian = mysqli_query($connect, "SELECT * FROM pencapaian");
             background: #f1f5f9;
         }
 
-        /* ================= NAVBAR ================= */
-
+        /* NAVBAR */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: #6b9bd6;
+            background: #1FA67A;
             height: 80px;
             display: flex;
             align-items: center;
@@ -45,7 +58,6 @@ $qPencapaian = mysqli_query($connect, "SELECT * FROM pencapaian");
             width: 1400px;
             margin: auto;
             display: flex;
-            align-items: center;
             justify-content: space-between;
             padding: 0 20px;
         }
@@ -70,79 +82,152 @@ $qPencapaian = mysqli_query($connect, "SELECT * FROM pencapaian");
 
         .menu {
             display: flex;
-            gap: 40px;
+            gap: 30px;
         }
 
         .menu a {
             text-decoration: none;
-            color: #0f172a;
+            color: #fff;
             font-size: 15px;
             font-weight: 600;
-            transition: .3s;
-        }
-
-        .menu a:hover {
-            color: #fff;
+            display: flex;
+            align-items: center;
+            height: 80px;
+            transition: 0.3s;
         }
 
         .menu a.active {
-            color: #fff;
-            border-bottom: 3px solid #fff;
-            padding-bottom: 6px;
+            color: #f5d93a !important;
+            font-weight: 700;
         }
 
+        .menu a:hover {
+            color: #e6fff7;
+        }
 
-        /* ================= HERO ================= */
+        /* HAMBURGER */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
 
-        .hero {
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+        }
+
+        @media(max-width:900px) {
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #1FA67A;
+            }
+
+            .menu.show {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        /* ================= HERO SLIDER ================= */
+        .hero-slider {
+            position: relative;
+            width: 100%;
             height: 100vh;
-            background: url('../../../storages/about/<?= $aboutHeader->banner ?>') center/cover no-repeat;
+            overflow: hidden;
+            margin-top: 80px;
+            /* offset navbar */
+        }
+
+        .hero-wrapper {
+            display: flex;
+            height: 100%;
+            transition: transform 1s ease;
+        }
+
+        .hero-slide {
+            min-width: 100%;
+            height: 100%;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: white;
             position: relative;
         }
 
-        .hero::before {
-            content: "";
+        .hero-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.55);
         }
 
         .hero-content {
             position: relative;
-            max-width: 800px;
+            z-index: 2;
+            max-width: 900px;
             padding: 20px;
+            color: #ffffff;
         }
 
         .hero-content h1 {
             font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .hero-desc {
+            font-size: 20px;
             margin-bottom: 10px;
         }
 
-        .hero-content p {
-            font-size: 20px;
-            margin-bottom: 20px;
+        .hero-address {
+            font-size: 18px;
+            margin-bottom: 32px;
         }
 
         .hero-btn {
-            display: inline-block;
-            padding: 12px 28px;
-            background: #fff;
-            color: #065f46;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
         }
 
+        .btn-get-started {
+            padding: 12px 30px;
+            background: #ffffff;
+            color: #065f46;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+        }
+
+        .btn-outline {
+            padding: 12px 30px;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+        }
 
         /* ================= PENCAPAIAN ================= */
-
         #pencapaian {
             padding: 90px 20px;
+            background: #f9fafb;
         }
 
         .pencapaian-title {
@@ -160,288 +245,78 @@ $qPencapaian = mysqli_query($connect, "SELECT * FROM pencapaian");
             gap: 28px;
         }
 
-        .pencapaian-card {
+        .prestasi-card {
             position: relative;
-            height: 360px;
-            border-radius: 18px;
+            border-radius: 16px;
             overflow: hidden;
-            cursor: pointer;
+            height: 390px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
         }
 
-        .pencapaian-card img {
+        .prestasi-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: .5s;
         }
 
-        .pencapaian-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .inner-card {
+        .prestasi-overlay {
             position: absolute;
-            bottom: -140px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 88%;
-            background: rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(6px);
-            padding: 18px;
-            border-radius: 14px;
-            transition: .5s;
-        }
-
-        .pencapaian-card:hover .inner-card {
-            bottom: 18px;
-        }
-
-        .inner-card h4 {
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
             color: #fff;
-            margin-bottom: 6px;
         }
 
-        .keterangan {
+        .prestasi-overlay h5 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .prestasi-overlay p {
             font-size: 14px;
-            color: #f1f1f1;
+            margin: 0;
+            opacity: 0.9;
         }
 
+        /* ================= PAGINATION ================= */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pagination a {
+            padding: 8px 16px;
+            background: #1FA67A;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .pagination a.active {
+            background: #065f46;
+        }
 
         /* ================= FOOTER ================= */
-
-        .footer-modern {
-            background: #6FA8FF;
-            color: #0f172a;
-            padding: 55px 20px 25px;
-            margin-top: 80px;
-        }
-
-        .footer-grid {
-            max-width: 1200px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 40px;
-        }
-
-        .footer-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .footer-text {
-            font-size: 14px;
-            line-height: 1.7;
-        }
-
-        .footer-menu-title {
-            text-align: center;
-        }
-
-        .footer-menu-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px 40px;
-            padding-left: 35px;
-        }
-
-        .menu-col a {
-            display: block;
-            font-size: 14px;
-            line-height: 1.9;
-            color: #0f172a;
-            text-decoration: none;
-            font-weight: 500;
-            transition: .3s;
-        }
-
-        .menu-col a:hover {
-            color: #1E3A8A;
+        footer {
+            background: #1FA67A;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            padding: 50px 20px 25px;
         }
 
         .footer-bottom {
             text-align: center;
             margin-top: 30px;
             font-size: 13px;
-            color: #1f2937;
-            border-top: 1px solid rgba(0, 0, 0, 0.15);
-            padding-top: 15px;
-        }
-
-
-        /* ================= RESPONSIVE ================= */
-
-        @media(max-width:1000px) {
-
-            .pencapaian-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-        }
-
-        @media(max-width:600px) {
-
-            .pencapaian-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .menu {
-                display: none;
-            }
-
-            .hero-content h1 {
-                font-size: 32px;
-            }
-
-        }
-    </style>
-</head>
-
-<body>
-
-
-    <!-- ================= NAVBAR ================= -->
-
-    <header class="navbar">
-
-        <div class="nav-container">
-
-            <div class="logo">
-                <img src="../../../storages/about/<?= htmlspecialchars($aboutHeader->logo) ?>">
-                <span><?= htmlspecialchars($aboutHeader->name) ?></span>
-            </div>
-
-            <nav class="menu">
-                <a href="#home" class="active">HOME</a>
-                <a href="../detail/guru.php">GURU</a>
-                <a href="../detail/pencapaian.php">PENCAPAIAN</a>
-                <a href="pages/headmaster.php">KEPALA SEKOLAH</a>
-                <a href="pages/ekstrakulikuler.php">EKSTRAKULIKULER</a>
-                <a href="pages/galleri.php">GALERI</a>
-                <a href="pages/contact.php">CONTACT</a>
-            </nav>
-
-        </div>
-
-    </header>
-
-
-    <!-- ================= HOME ================= -->
-
-    <section class="hero" id="home">
-
-        <div class="hero-content">
-
-            <h1><?= htmlspecialchars($aboutHeader->name) ?></h1>
-
-            <p><?= htmlspecialchars($aboutHeader->keterangan) ?></p>
-
-            <a href="#pencapaian" class="hero-btn">Lihat Prestasi</a>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================= PENCAPAIAN ================= -->
-
-    <section id="pencapaian">
-
-        <h2 class="pencapaian-title">Prestasi Siswa</h2>
-
-        <div class="pencapaian-grid">
-
-            <?php while ($p = mysqli_fetch_object($qPencapaian)): ?>
-
-                <div class="pencapaian-card">
-
-                    <img src="../../../storages/pencapaian/<?= htmlspecialchars($p->image) ?>">
-
-                    <div class="inner-card">
-                        <h4><?= htmlspecialchars($p->nama) ?></h4>
-                        <p class="keterangan"><?= nl2br(htmlspecialchars($p->keterangan)) ?></p>
-                    </div>
-
-                </div>
-
-            <?php endwhile; ?>
-
-        </div>
-
-    </section>
-
-
-
-    <?php
-    // Ambil data tentang sekolah
-    $qabout = "SELECT * FROM about LIMIT 1";
-    $resultabout = mysqli_query($connect, $qabout) or die(mysqli_error($connect));
-    $aboutHeader = mysqli_fetch_object($resultabout);
-    ?>
-
-    <footer>
-        <div class="footer-grid">
-
-            <!-- Tentang Sekolah -->
-            <div>
-                <div class="footer-title"><?= htmlspecialchars($aboutHeader->name) ?></div>
-                <div class="footer-text"><?= htmlspecialchars($aboutHeader->keterangan) ?></div>
-            </div>
-
-            <!-- Menu -->
-            <div class="footer-menu">
-
-                <div class="footer-title footer-menu-title">Menu</div>
-
-                <div class="footer-menu-grid">
-
-                    <div class="menu-col">
-                        <a href="#hero-slider">Home</a>
-                        <a href="#headmaster">Kepala Sekolah</a>
-                        <a href="#ekstrakulikuler">Ekstrakulikuler</a>
-                        <a href="#pencapaian">Prestasi</a>
-                    </div>
-
-                    <div class="menu-col">
-                        <a href="#galeriPreview">Galeri</a>
-                        <a href="#visi-misi">Visi Misi</a>
-                        <a href="guru.php">Guru</a>
-                        <a href="#contact">Kontak</a>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- MAP -->
-            <div class="map-responsive">
-                <iframe src="https://maps.google.com/maps?width=600&height=400&hl=en&q=sd%202%20kancilan&t=&z=15&ie=UTF8&iwloc=B&output=embed" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-
-        </div>
-
-        <div class="footer-bottom">
-            © <?= date('Y') ?> <?= htmlspecialchars($aboutHeader->name) ?>
-        </div>
-
-    </footer>
-
-    <style>
-        /* FOOTER */
-
-        footer {
-            background: #1FA67A;
-            /* sama dengan navbar */
-            color: #ffffff;
-            font-family: 'Poppins', sans-serif;
-            padding: 50px 20px 25px;
         }
 
         .footer-grid {
@@ -470,15 +345,11 @@ $qPencapaian = mysqli_query($connect, "SELECT * FROM pencapaian");
             padding-left: 35px;
         }
 
-        .menu-col {
-            text-align: left;
-        }
-
         .menu-col a {
             display: block;
             font-size: 14px;
             line-height: 1.9;
-            color: #ffffff;
+            color: #fff;
             text-decoration: none;
             font-weight: 500;
             transition: .3s;
@@ -500,22 +371,10 @@ $qPencapaian = mysqli_query($connect, "SELECT * FROM pencapaian");
             border-radius: 6px;
         }
 
-        /* FOOTER BOTTOM */
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 13px;
-            color: #ffffff;
-            border-top: none;
-            padding-top: 15px;
-            background: #1FA67A;
-            /* sama dengan navbar */
-        }
-
-        /* RESPONSIVE */
-
         @media(max-width:768px) {
+            .pencapaian-grid {
+                grid-template-columns: 1fr;
+            }
 
             .footer-grid {
                 grid-template-columns: 1fr;
@@ -527,12 +386,137 @@ $qPencapaian = mysqli_query($connect, "SELECT * FROM pencapaian");
                 padding-left: 20px;
             }
 
-            .menu-col {
-                text-align: left;
+            .hero-content h1 {
+                font-size: 32px;
             }
 
+            .hero-desc {
+                font-size: 16px;
+            }
+
+            .hero-address {
+                font-size: 15px;
+            }
         }
     </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="../../../storages/about/<?= htmlspecialchars($aboutHeader->logo) ?>">
+                <span><?= htmlspecialchars($aboutHeader->name) ?></span>
+            </div>
+            <nav class="menu">
+                <a href="/sdn%202%20kancilan/frontend/index.php#home">HOME</a>
+                <a href="guru.php#guru">GURU</a>
+                <a class="nav-link <?= ($current_page == 'pencapaian.php') ? 'active' : '' ?>" href="#pencapaian">PENCAPAIAN</a>
+                <a href="ekstrakulikuler.php#ekstrakulikuler">EKSTRAKULIKULER</a>
+                <a href="fasilitas.php#fasilitas">FASILITAS</a>
+                <a href="galleri.php#galeri">GALERI</a>
+                <a href="/sdn%202%20kancilan/frontend/index.php#contact">CONTACT</a>
+                <a href="https://arsip.siap-ppdb.com/2024/jateng/#/">PPDB</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SLIDER -->
+    <section class="hero-slider" id="hero-slider">
+        <div class="hero-wrapper">
+            <?php while ($item = $resultabout->fetch_object()) : ?>
+                <div class="hero-slide" style="background-image: url('../../../storages/about/<?= htmlspecialchars($item->banner) ?>');">
+                    <div class="hero-overlay"></div>
+                    <div class="hero-content">
+                        <h1><?= htmlspecialchars($item->name) ?></h1>
+                        <p class="hero-desc"><?= htmlspecialchars($item->keterangan) ?></p>
+                        <p class="hero-address"><?= htmlspecialchars($item->alamat) ?></p>
+                        <div class="hero-btn">
+                            <a href="#pencapaian" class="btn-get-started">Lihat Prestasi</a>
+                            <a href="/sdn%202%20kancilan/frontend/index.php#contact" class="btn-outline">Kontak</a>
+                        </div>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        </div>
+    </section>
+
+    <!-- PENCAPAIAN -->
+    <section id="pencapaian">
+        <h2 class="pencapaian-title">Prestasi Siswa</h2>
+
+        <div class="pencapaian-grid">
+            <?php while ($p = mysqli_fetch_object($qPencapaian)): ?>
+                <div class="prestasi-card">
+                    <img src="../../../storages/pencapaian/<?= htmlspecialchars($p->image) ?>">
+                    <div class="prestasi-overlay">
+                        <h5><?= nl2br(htmlspecialchars($p->nama)) ?></h5>
+                        <p><?= nl2br(htmlspecialchars($p->keterangan)) ?></p>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="pagination">
+
+            <a href="?page=<?= ($page <= 1 ? 1 : $page - 1) ?>">Prev</a>
+
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <a href="?page=<?= $i ?>" class="<?= ($i == $page) ? 'active' : '' ?>">
+                    <?= $i ?>
+                </a>
+            <?php endfor; ?>
+
+            <a href="?page=<?= ($page >= $totalPages ? $totalPages : $page + 1) ?>">Next</a>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-title"><?= htmlspecialchars($aboutHeader->name) ?></div>
+                <div class="footer-text"><?= htmlspecialchars($aboutHeader->keterangan) ?></div>
+            </div>
+            <div class="footer-menu">
+                <div class="footer-title footer-menu-title">Menu</div>
+                <div class="footer-menu-grid">
+                    <div class="menu-col">
+                        <a href="/sdn%202%20kancilan/frontend/index.php#home">Home</a>
+                        <a href="ekstrakulikuler.php#ekstrakulikuler">Ekstrakulikuler</a>
+                        <a href="pencapaian.php#pencapaian">Prestasi</a>
+                        <a href="galleri.php#galeri">Galeri</a>
+                    </div>
+                    <div class="menu-col">
+                        <a href="guru.php#guru">Guru</a>
+                        <a href="fasilitas.php#fasilitas">Fasilitas</a>
+                        <a href="/sdn%202%20kancilan/frontend/index.php#contact">Kontak</a>
+                        <a href="https://arsip.siap-ppdb.com/2024/jateng/#/">PPDB</a>
+                    </div>
+                </div>
+            </div>
+            <div class="map-responsive">
+                <iframe src="https://maps.google.com/maps?width=600&height=400&hl=en&q=sd%202%20kancilan&t=&z=15&ie=UTF8&iwloc=B&output=embed" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+        <div class="footer-bottom">© <?= date('Y') ?> <?= htmlspecialchars($aboutHeader->name) ?></div>
+    </footer>
+    <script>
+        const wrapper = document.querySelector('.hero-wrapper');
+        const slides = document.querySelectorAll('.hero-slide');
+        let index = 0;
+
+        function nextSlide() {
+            index++;
+            if (index >= slides.length) index = 0;
+            wrapper.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        setInterval(nextSlide, 5000);
+    </script>
 </body>
 
 </html>

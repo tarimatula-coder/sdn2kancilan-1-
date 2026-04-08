@@ -19,7 +19,7 @@ $resultabout = mysqli_query($connect, $qabout) or die(mysqli_error($connect));
                     <p class="hero-address"><?= $item->alamat ?></p>
 
                     <div class="hero-btn">
-                        <a href="#about" class="btn-get-started">Tentang Sekolah</a>
+                        <a href="#headmaster" class="btn-get-started">Sambutan Kepala Sekolah</a>
                         <a href="#contact" class="btn-outline">Kontak</a>
                     </div>
                 </div>

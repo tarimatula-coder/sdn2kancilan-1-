@@ -21,7 +21,7 @@ $resultpencapaian = mysqli_query($connect, $qpencapaian);
                             alt="<?= htmlspecialchars($item->nama) ?>">
 
                         <div class="prestasi-overlay">
-                            <h5><?= htmlspecialchars($item->nama) ?></h5>
+                            <h5><?= nl2br (htmlspecialchars($item->nama)); ?></h5>
                             <p><?= nl2br(htmlspecialchars($item->keterangan)); ?></p>
                         </div>
 
