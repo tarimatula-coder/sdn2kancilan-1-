@@ -1,4 +1,3 @@
-
 <header class="navbar">
 
     <div class="nav-container">
@@ -19,7 +18,7 @@
             <a href="pages/detail/galleri.php#galleri">GALERI</a>
             <a href="pages/detail/ekstrakulikuler.php#ekstrakulikuler">EKSTRAKULIKULER</a>
             <a href="index.php#contact">CONTACT</a>
-            <a href="index.php#contact">PPDB</a>
+            <a href="https://arsip.siap-ppdb.com/2024/jateng/#/">PPDB</a>
         </nav>
     </div>
 
