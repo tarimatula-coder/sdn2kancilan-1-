@@ -247,28 +247,36 @@ $aboutHeader = mysqli_fetch_object($qaboutHeader);
             margin: auto;
         }
 
+        /* CARD */
         .ekskul-card {
-            background: #fff;
+            background: #ffffff;
             border-radius: 22px;
             border: 1px solid #e5e7eb;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-            transition: .35s;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            transition: 0.35s;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            height: auto;
         }
 
         .ekskul-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        /* IMAGE */
+        .img-box {
+            padding: 20px 20px 10px 20px;
         }
 
         .img-box img {
             width: 100%;
-            height: 180px;
+            height: 210px;
             object-fit: cover;
             border-radius: 14px;
         }
+
 
         .card-body {
             padding: 15px 25px 25px 25px;
