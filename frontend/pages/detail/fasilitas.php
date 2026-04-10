@@ -365,7 +365,7 @@ $qfasilitas = mysqli_query(
             </div>
 
             <nav class="menu">
-                <a href="/sdn%202%20kancilan/frontend/index.php#home">HOME</a>
+                <a href="/sdn%202%20kancilan(1)/frontend/index.php#home">HOME</a>
                 <a href="guru.php#guru">GURU</a>
                 <a href="pencapaian.php#pencapaian">PENCAPAIAN</a>
                 <a href="ekstrakulikuler.php#ekstrakulikuler">EKSTRAKULIKULER</a>

@@ -426,7 +426,7 @@ $qGuru = mysqli_query($connect, "SELECT * FROM guru WHERE jabatan!='Kepala Sekol
                 <span><?= htmlspecialchars($aboutHeader->name) ?></span>
             </div>
             <nav class="menu">
-                <a href="/sdn%202%20kancilan/frontend/index.php#home">HOME</a>
+                <a href="/sdn%202%20kancilan(1)/frontend/index.php#home">HOME</a>
                 <a class="nav-link <?= ($current_page == 'guru.php') ? 'active' : '' ?>" href="#guru">GURU</a>
                 <a href="pencapaian.php#pencapaian">PENCAPAIAN</a>
                 <a href="ekstrakulikuler.php#ekstrakulikuler">EKSTRAKULIKULER</a>

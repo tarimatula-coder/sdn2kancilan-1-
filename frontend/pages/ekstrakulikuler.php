@@ -1,5 +1,4 @@
 <?php
-/* EKSTRAKULIKULER */
 $qekstrakulikuler = "SELECT * FROM ekstrakulikuler LIMIT 3";
 $resultekstrakulikuler = mysqli_query($connect, $qekstrakulikuler);
 ?>

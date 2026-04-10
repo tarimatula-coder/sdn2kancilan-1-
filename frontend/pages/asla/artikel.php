@@ -281,13 +281,13 @@ $isiGabung = $data1->keterangan . "\n" . ($data2->keterangan ?? '');
             </div>
 
             <nav class="menu">
-                <a href="/sdn%202%20kancilan/frontend/index.php#home" class="active">HOME</a>
-                <a href="/sdn%202%20kancilan/frontend/pages/detail/guru.php">GURU</a>
-                <a href="/sdn%202%20kancilan/frontend/pages/detail/pencapaian.php">PENCAPAIAN</a>
-                <a href="/sdn%202%20kancilan/frontend/index.php#ekstrakulikuler">EKSTRAKULIKULER</a>
-                <a href="/sdn%202%20kancilan/frontend/index.php#fasilitas">FASILITAS</a>
-                <a href="/sdn%202%20kancilan/frontend/pages/detail/galleri.php">GALERI</a>
-                <a href="/sdn%202%20kancilan/frontend/index.php#contact">CONTACT</a>
+                <a href="/sdn%202%20kancilan(1)/frontend/index.php#home" class="active">HOME</a>
+                <a href="/sdn%202%20kancilan(1)/frontend/pages/detail/guru.php">GURU</a>
+                <a href="/sdn%202%20kancilan(1)/frontend/pages/detail/pencapaian.php">PENCAPAIAN</a>
+                <a href="/sdn%202%20kancilan(1)/frontend/index.php#ekstrakulikuler">EKSTRAKULIKULER</a>
+                <a href="/sdn%202%20kancilan(1)/frontend/index.php#fasilitas">FASILITAS</a>
+                <a href="/sdn%202%20kancilan(1)/frontend/pages/detail/galleri.php">GALERI</a>
+                <a href="/sdn%202%20kancilan(1)/frontend/index.php#contact">CONTACT</a>
                 <a href="https://arsip.siap-ppdb.com/2024/jateng/#/">PPDB</a>
             </nav>
 
