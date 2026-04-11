@@ -455,7 +455,7 @@ $aboutHeader = mysqli_fetch_object($qaboutHeader);
                 <div></div>
             </div>
             <nav class="menu" id="menu">
-                <a href="/sdn%202%20kancilan(1)/frontend/index.php#home">HOME</a>
+                <a href="/sdn%202%20kancilan/frontend/index.php#home">HOME</a>
                 <a href="guru.php#guru">GURU</a>
                 <a href="pencapaian.php#pencapaian">PENCAPAIAN</a>
                 <a class="nav-link <?= ($current_page == 'galleri.php') ? 'active' : '' ?>" href="#ekstrakulikuler">EKSTRAKULIKULER</a>
