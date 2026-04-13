@@ -455,13 +455,13 @@ $aboutHeader = mysqli_fetch_object($qaboutHeader);
                 <div></div>
             </div>
             <nav class="menu" id="menu">
-                <a href="/sdn%202%20kancilan/frontend/index.php#home">HOME</a>
+                <a href="/index.php#home">HOME</a>
                 <a href="guru.php#guru">GURU</a>
                 <a href="pencapaian.php#pencapaian">PENCAPAIAN</a>
                 <a class="nav-link <?= ($current_page == 'galleri.php') ? 'active' : '' ?>" href="#ekstrakulikuler">EKSTRAKULIKULER</a>
                 <a href="fasilitas.php#fasilitas">FASILITAS</a>
                 <a href="galleri.php#galeri">GALERI</a>
-                <a class="nav-link" href="/sdn%202%20kancilan/frontend/index.php#contact">CONTACT</a>
+                <a class="nav-link" href="/index.php#contact">CONTACT</a>
                 <a class="nav-link" href="https://arsip.siap-ppdb.com/2024/jateng/#/">PPDB</a>
             </nav>
         </div>

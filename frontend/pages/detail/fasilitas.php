@@ -365,13 +365,13 @@ $qfasilitas = mysqli_query(
             </div>
 
             <nav class="menu">
-                <a href="/sdn%202%20kancilan/frontend/index.php#home">HOME</a>
+                <a href="/index.php#home">HOME</a>
                 <a href="guru.php#guru">GURU</a>
                 <a href="pencapaian.php#pencapaian">PENCAPAIAN</a>
                 <a href="ekstrakulikuler.php#ekstrakulikuler">EKSTRAKULIKULER</a>
                 <a class="nav-link <?= ($current_page == 'fasilitas.php') ? 'active' : '' ?>" href="#fasilitas">FASILITAS</a>
                 <a href="galleri.php#galeri">GALERI</a>
-                <a href="/sdn%202%20kancilan/frontend/index.php#contact">CONTACT</a>
+                <a href="/index.php#contact">CONTACT</a>
                 <a href="https://arsip.siap-ppdb.com/2024/jateng/#/">PPDB</a>
             </nav>
 

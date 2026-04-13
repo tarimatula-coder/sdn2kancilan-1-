@@ -485,7 +485,7 @@ $aboutHeader = mysqli_fetch_object($qaboutHeader);
                 <div class="footer-title footer-menu-title">Menu</div>
                 <div class="footer-menu-grid">
                     <div class="menu-col">
-                        <a href="/sdn%202%20kancilan/frontend/index.php#home">Home</a>
+                        <a href="/index.php#home">Home</a>
                         <a href="ekstrakulikuler.php#ekstrakulikuler">Ekstrakulikuler</a>
                         <a href="pencapaian.php#pencapaian">Prestasi</a>
                         <a href="galleri.php#galeri">Galeri</a>
@@ -493,7 +493,7 @@ $aboutHeader = mysqli_fetch_object($qaboutHeader);
                     <div class="menu-col">
                         <a href="guru.php#guru">Guru</a>
                         <a href="fasilitas.php#fasilitas">Fasilitas</a>
-                        <a href="/sdn%202%20kancilan/frontend/index.php#contact">Kontak</a>
+                        <a href="/index.php#contact">Kontak</a>
                         <a href="https://arsip.siap-ppdb.com/2024/jateng/#/">PPDB</a>
                     </div>
                 </div>

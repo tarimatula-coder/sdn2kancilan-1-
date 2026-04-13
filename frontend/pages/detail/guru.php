@@ -426,13 +426,13 @@ $qGuru = mysqli_query($connect, "SELECT * FROM guru WHERE jabatan!='Kepala Sekol
                 <span><?= htmlspecialchars($aboutHeader->name) ?></span>
             </div>
             <nav class="menu">
-                <a href="/sdn%202%20kancilan/frontend/index.php#home">HOME</a>
+                <a href="/index.php#home">HOME</a>
                 <a class="nav-link <?= ($current_page == 'guru.php') ? 'active' : '' ?>" href="#guru">GURU</a>
                 <a href="pencapaian.php#pencapaian">PENCAPAIAN</a>
                 <a href="ekstrakulikuler.php#ekstrakulikuler">EKSTRAKULIKULER</a>
                 <a href="fasilitas.php#fasilitas">FASILITAS</a>
                 <a href="galleri.php#galeri">GALERI</a>
-                <a href="/sdn%202%20kancilan/frontend/index.php#contact">CONTACT</a>
+                <a href="/index.php#contact">CONTACT</a>
                 <a href="https://arsip.siap-ppdb.com/2024/jateng/#/">PPDB</a>
             </nav>
         </div>
